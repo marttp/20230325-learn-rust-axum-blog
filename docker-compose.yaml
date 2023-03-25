@@ -1,0 +1,27 @@
+version: '3.9'
+services:
+  postgres:
+    image: postgres
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres/init:/docker-entrypoint-initdb.d
+    environment:
+      - POSTGRES_PASSWORD=passw0rd
+      - TZ=Asia/Tokyo
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  # perf-rust:
+  #   image: marttp/perf-rust
+  #   container_name: perf-rust
+  #   environment:
+  #     - DATABASE_URL=postgresql://postgres:passw0rd@postgres:5432/perf_test
+  #   ports:
+  #     - "8080:8080"
+  #   depends_on:
+  #     postgres:
+  #       condition: service_healthy

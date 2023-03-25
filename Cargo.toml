@@ -1,0 +1,19 @@
+[package]
+edition = "2021"
+name = "blog-rs"
+version = "0.1.0"
+
+[[bin]]
+name = "blog-rs"
+path = "src/main.rs"
+
+[[bin]]
+name = "markd"
+path = "src/bin/markd.rs"
+
+[dependencies]
+askama = {version = "0.12.0", features = ["markdown"]}
+axum = {version= "0.6.4", features = ["headers"]}
+sqlx = {version = "0.6", features = ["runtime-tokio-rustls", "postgres", "macros", "time"]}
+tokio = {version = "1.13.0", features = ["macros", "rt-multi-thread"]}
+tower-http = {version = "0.4", features = ["full"]}
